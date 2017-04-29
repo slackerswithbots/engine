@@ -1,0 +1,15 @@
+{
+  "name": "engine",
+  "version": "1.0.0",
+  "description": "engine for volbot",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "author": "Kenneth Massada",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.15.2"
+  }
+}

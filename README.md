@@ -9,10 +9,10 @@ Method:  GET
 Time:  1493497486551
 
 # Data
-| Route	                | HTTP Verb	    | Description                   |
-|-----------------------|---------------|-------------------------------|
-| /api/bears	        | GET	        | Get all the bears.            |
-| /api/bears	        | POST	        | Create a bear.                |
-| /api/bears/:bear_id	| GET	        | Get a single bear.            |
-| /api/bears/:bear_id	| PUT	        | Update a bear with new info.  |
-| /api/bears/:bear_id	| DELETE	    | Delete a bear.                |
+| Route	                | HTTP Verb	    | Description                    |
+|-----------------------|---------------|--------------------------------|
+| /api/events	        | GET	        | Get all the events.            |
+| /api/events	        | POST	        | Create a event.                |
+| /api/events/:event_id	| GET	        | Get a single event.            |
+| /api/events/:event_id	| PUT	        | Update a event with new info.  |
+| /api/events/:event_id	| DELETE	    | Delete a event.                |

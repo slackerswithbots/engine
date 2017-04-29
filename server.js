@@ -13,8 +13,15 @@ const bodyParser = require('body-parser');
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
+// Url Settings
 const PORT = process.env.PORT || 8080;        // set our port
 const apiPrefix = process.env.APP_API_VERSION || '/api/v1';
+
+// Mongoose
+var mongoose   = require('mongoose');
+const MONGO_URI =  process.env.MONGO_URI;
+mongoose.connect(MONGO_URI); // connect to our database
+
 
 // Models
 var Event = require('./app/models/event');

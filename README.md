@@ -9,10 +9,10 @@ Method:  GET
 Time:  1493497486551
 
 # Data
-| Route	                | HTTP Verb	    | Description                    |
-|-----------------------|---------------|--------------------------------|
-| /api/events	        | GET	        | Get all the events.            |
-| /api/events	        | POST	        | Create a event.                |
-| /api/events/:event_id	| GET	        | Get a single event.            |
-| /api/events/:event_id	| PUT	        | Update a event with new info.  |
-| /api/events/:event_id	| DELETE	    | Delete a event.                |
+| Route	                    | HTTP Verb	    | Description                    |
+|---------------------------|---------------|--------------------------------|
+| /api/v1/events	        | GET	        | Get all the events.            |
+| /api/v1/events	        | POST	        | Create a event.                |
+| /api/v1/events/:event_id	| GET	        | Get a single event.            |
+| /api/v1/events/:event_id	| PUT	        | Update a event with new info.  |
+| /api/v1/events/:event_id	| DELETE	    | Delete a event.                |

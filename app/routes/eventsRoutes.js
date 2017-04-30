@@ -45,7 +45,7 @@ const routes = function(Event){
 
                 if (events && events.length > 0)
                     res.json(events);
-                  res.status(400).send('Objects not found');
+                res.status(400).send('Objects not found');
             });
         }
         else {

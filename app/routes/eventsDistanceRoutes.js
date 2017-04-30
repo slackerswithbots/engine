@@ -11,12 +11,10 @@ const routes = function(Event, distance){
 
     // get the event with that id (accessed at POST /events/distance)
     .post(function(req, res, next) {
-        console.log('here');
         try {
-            const event = new Event();
-            event.location = {};
-            event.location.long = parseFloat(req.body.locationLong);  
-            event.location.lat = parseFloat(req.body.locationLat);  
+            location = {};
+            location.long = parseFloat(req.body.locationLong);  
+            location.lat = parseFloat(req.body.locationLat);  
         } catch(err){
             next(err);
         }
@@ -25,47 +23,26 @@ const routes = function(Event, distance){
             location: { $type: "object" }, 
             "location.long": { "$exists": true},
             "location.lat": { "$exists": true},
-        }},{
-            $project: {
-                location: 1
-            }
+        }},{$project: { location: 1 }
         }], function(err, results){
-                console.log(results);
+            output = results.filter(function(value){
+                eachLocation = value.location;
+                myDistance = distance(eachLocation.lat,eachLocation.long, location.lat, location.long);
+                if (isNumber(myDistance) && myDistance <= 5){
+                    return true
+                }
+                return false
+            });
+            if (output && output.length > 0)
+                res.json(output);
+            res.status(400).send('Objects not found');
         });
-
-
-        // // save the event and check for errors
-        // event.save(function(err) {
-        //     if (err)
-        //         res.send(err);
-
-        //     res.json({ message: 'event created!' });
-        // });
         
     });
-    //  // update the event with this id (accessed at GET /events/distance)
-    // .get(function(req, res) {
-    //     if(req.query && Object.keys(req.query).length > 0){
-    //         console.log(req.query);            
-    //         Event.find(req.query, function(err, events) {
-    //             if (err)
-    //                 next(err);
-
-    //             if (events && events.length > 0)
-    //                 res.json(events);
-    //               res.status(400).send('Objects not found');
-    //         });
-    //     }
-    //     else {
-    //         Event.find(function(err, events) {
-    //             if (err)
-    //                 next(err);
-
-    //             res.json(events);
-    //         });
-    //     }
-    // });
-
     return eventsDistanceRouter;
+};
+const isNumber = (obj) => {
+  return obj!== undefined && typeof(obj) === 'number' && !isNaN(obj);
 }
+
 module.exports = routes;

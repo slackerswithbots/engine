@@ -26,8 +26,14 @@ const routes = function(Event){
 
             if (err)
                 res.send(err);
-
-            event.name = req.body.name;  // update the events info
+            event.eventName = req.body.eventName;  
+            event.eventType = req.body.eventType;  
+            event.eventCategory = req.body.eventCategory;  
+            event.location = {};
+            event.location.long = parseFloat(req.body.locationLong);  
+            event.location.lat = parseFloat(req.body.locationLat);  
+            event.dateTime = new Date(req.body.dateTime);  
+            event.description = req.body.description;  
 
             // save the event
             event.save(function(err) {

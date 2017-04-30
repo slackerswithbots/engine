@@ -12,8 +12,15 @@ const routes = function(Event){
     // get the event with that id (accessed at POST /events)
     .post(function(req, res) {
         
-        const event = new Event(); // create a new instance of the event model
-        event.name = req.body.name;  // set the events name (comes from the request)
+        const event = new Event(); 
+        event.eventName = req.body.eventName;  
+        event.eventType = req.body.eventType;  
+        event.eventCategory = req.body.eventCategory;  
+        event.location = {};
+        event.location.long = parseFloat(req.body.locationLong);  
+        event.location.lat = parseFloat(req.body.locationLat);  
+        event.dateTime = new Date(req.body.dateTime);  
+        event.description = req.body.description;  
 
         // save the event and check for errors
         event.save(function(err) {

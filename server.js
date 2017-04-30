@@ -18,18 +18,20 @@ const PORT = process.env.PORT || 8080;        // set our port
 const apiPrefix = process.env.APP_API_VERSION || '/api/v1';
 
 // Mongoose
-var mongoose   = require('mongoose');
-const MONGO_URI =  process.env.MONGO_URI;
+const mongoose   = require('mongoose');
+const MONGO_URI =  process.env.MONGO_URI || 'mongodb://localhost:27017/Juco';
 mongoose.connect(MONGO_URI); // connect to our database
 
 
 // Models
-var Event = require('./app/models/event');
+const Activity = require('./app/models/activity.js');
 
 // ROUTES FOR OUR API
 // =============================================================================
-const apiRouter = express.Router();              // get an instance of the express Router
-const router = express.Router();              // get an instance of the express Router
+const router = express.Router();
+const apiRouter = express.Router();
+const activityRoutes = require('./app/routes/activityRoutes.js')(Activity);
+const activitiesRoutes = require('./app/routes/activitiesRoutes.js')(Activity);
 
 // Catch-all
 app.use(function timeLog(req, res, next) {
@@ -40,12 +42,12 @@ app.use(function timeLog(req, res, next) {
   next();
 });
 
+// test route to make sure everything is working (accessed at GET /)
 router.get('/', function(req, res) {
     res.json({ message: 'no one is home' });   
 });
 
-
-// test route to make sure everything is working (accessed at GET http://localhost:8080/api)
+// test route to make sure everything is working (accessed at GET /api)
 apiRouter.get('/', function(req, res) {
     res.json({ message: 'hooray! welcome to our api!' });   
 });
@@ -54,8 +56,10 @@ apiRouter.get('/', function(req, res) {
 
 // REGISTER OUR ROUTES -------------------------------
 // all of our routes will be prefixed with /api
-app.use('/', router);
 app.use(apiPrefix, apiRouter);
+app.use(apiPrefix, activityRoutes);
+app.use(apiPrefix, activitiesRoutes);
+app.use('/', router);
 
 // START THE SERVER
 // =============================================================================

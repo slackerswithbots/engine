@@ -36,13 +36,25 @@ const routes = function(Event){
     })
      // update the event with this id (accessed at GET /events)
     .get(function(req, res) {
-        console.log(req.query);
-        Event.find(function(err, events) {
-            if (err)
-                res.send(err);
+        if(req.query && Object.keys(req.query).length > 0){
+            console.log(req.query);            
+            Event.find(req.query, function(err, events) {
+                if (err)
+                    next(err);
 
-            res.json(events);
-        });
+                if (events && events.length > 0)
+                    res.json(events);
+                  res.status(400).send('Objects not found');
+            });
+        }
+        else {
+            Event.find(function(err, events) {
+                if (err)
+                    next(err);
+
+                res.json(events);
+            });
+        }
     });
 
     return eventsRouter;

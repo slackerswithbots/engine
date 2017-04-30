@@ -7,6 +7,7 @@
 const express    = require('express');        // call express
 const app        = express();                 // define our app using express
 const bodyParser = require('body-parser');
+const cors       = require('cors');
 
 // configure app to use bodyParser()
 // this will let us get the data from a POST
@@ -37,6 +38,13 @@ const apiRouter = express.Router();
 const eventRoutes = require('./app/routes/eventRoutes.js')(Event);
 const eventsRoutes = require('./app/routes/eventsRoutes.js')(Event);
 const eventsDistanceRoutes = require('./app/routes/eventsDistanceRoutes.js')(Event, distance);
+
+// CORS
+const corsOptions = {
+  allowedHeaders: ['X-Access-Token','Content-Type'],
+  exposedHeaders: ['X-Access-Token','Content-Type'],
+};
+app.use(cors(corsOptions));
 
 // Catch-all
 app.use(function timeLog(req, res, next) {

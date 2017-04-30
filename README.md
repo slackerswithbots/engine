@@ -12,7 +12,9 @@ Time:  1493497486551
 | Route	                        | HTTP Verb	    | Description                    |
 |-------------------------------|---------------|--------------------------------|
 | /api/v1/events                | GET	        | Get all the events             |
+| /api/v1/events?q=             | GET	        | Get events based on query      |
 | /api/v1/events                | POST	        | Create a event.                |
+| /api/v1/events/distance       | POST	        | Get events in a 5 mile radius  |
 | /api/v1/event/:event_id	    | GET	        | Get a single event.            |
 | /api/v1/event/:event_id	    | PUT	        | Update a event with new info.  |
 | /api/v1/event/:event_id	    | DELETE	    | Delete a event.                |

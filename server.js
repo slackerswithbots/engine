@@ -26,12 +26,17 @@ mongoose.connect(MONGO_URI); // connect to our database
 // Models
 const Event = require('./app/models/event.js');
 
+// Libs
+const distance = require('./app/lib/distance.js');
+// console.log(distance(47.628641, -122.342338, 47.653085, -122.342786));
+
 // ROUTES FOR OUR API
 // =============================================================================
 const router = express.Router();
 const apiRouter = express.Router();
 const eventRoutes = require('./app/routes/eventRoutes.js')(Event);
 const eventsRoutes = require('./app/routes/eventsRoutes.js')(Event);
+const eventsDistanceRoutes = require('./app/routes/eventsDistanceRoutes.js')(Event, distance);
 
 // Catch-all
 app.use(function timeLog(req, res, next) {
@@ -57,8 +62,9 @@ apiRouter.get('/', function(req, res) {
 // REGISTER OUR ROUTES -------------------------------
 // all of our routes will be prefixed with /api
 app.use(apiPrefix, apiRouter);
-app.use(apiPrefix, eventRoutes);
+app.use(apiPrefix, eventsDistanceRoutes);
 app.use(apiPrefix, eventsRoutes);
+app.use(apiPrefix, eventRoutes);
 app.use('/', router);
 
 // Catch all errors

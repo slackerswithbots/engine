@@ -61,6 +61,13 @@ app.use(apiPrefix, eventRoutes);
 app.use(apiPrefix, eventsRoutes);
 app.use('/', router);
 
+// Catch all errors
+app.use(function (err, req, res, next) {
+    if (err.stack)
+        console.error(err.stack);
+  res.status(500).send('Something broke!')
+});
+
 // START THE SERVER
 // =============================================================================
 app.listen(PORT);

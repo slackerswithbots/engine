@@ -10,17 +10,20 @@ const routes = function(Event){
     eventsRouter.route('/events')
 
     // get the event with that id (accessed at POST /events)
-    .post(function(req, res) {
-        
-        const event = new Event(); 
-        event.eventName = req.body.eventName;  
-        event.eventType = req.body.eventType;  
-        event.eventCategory = req.body.eventCategory;  
-        event.location = {};
-        event.location.long = parseFloat(req.body.locationLong);  
-        event.location.lat = parseFloat(req.body.locationLat);  
-        event.dateTime = new Date(req.body.dateTime);  
-        event.description = req.body.description;  
+    .post(function(req, res, next) {
+        try {
+            const event = new Event();
+            event.eventName = req.body.eventName;  
+            event.eventType = req.body.eventType;  
+            event.eventCategory = req.body.eventCategory;  
+            event.location = {};
+            event.location.long = parseFloat(req.body.locationLong);  
+            event.location.lat = parseFloat(req.body.locationLat);  
+            event.dateTime = new Date(req.body.dateTime);  
+            event.description = req.body.description;
+        } catch(err){
+            next(err);
+        }
 
         // save the event and check for errors
         event.save(function(err) {
@@ -33,6 +36,7 @@ const routes = function(Event){
     })
      // update the event with this id (accessed at GET /events)
     .get(function(req, res) {
+        console.log(req.query);
         Event.find(function(err, events) {
             if (err)
                 res.send(err);

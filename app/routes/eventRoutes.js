@@ -19,21 +19,25 @@ const routes = function(Event){
     })
 
      // update the event with this id (accessed at PUT /event/:event_id)
-    .put(function(req, res) {
+    .put(function(req, res, next) {
 
         // use our event model to find the event we want
         Event.findById(req.params.event_id, function(err, event) {
 
             if (err)
                 res.send(err);
-            event.eventName = req.body.eventName;  
-            event.eventType = req.body.eventType;  
-            event.eventCategory = req.body.eventCategory;  
-            event.location = {};
-            event.location.long = parseFloat(req.body.locationLong);  
-            event.location.lat = parseFloat(req.body.locationLat);  
-            event.dateTime = new Date(req.body.dateTime);  
-            event.description = req.body.description;  
+            try {
+                event.eventName = req.body.eventName;  
+                event.eventType = req.body.eventType;  
+                event.eventCategory = req.body.eventCategory;  
+                event.location = {};
+                event.location.long = parseFloat(req.body.locationLong);  
+                event.location.lat = parseFloat(req.body.locationLat);  
+                event.dateTime = new Date(req.body.dateTime);  
+                event.description = req.body.description;  
+            } catch(err){
+                next(err);
+            }
 
             // save the event
             event.save(function(err) {

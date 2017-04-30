@@ -35,6 +35,7 @@ const routes = function(Event){
                 event.location.lat = parseFloat(req.body.locationLat);  
                 event.dateTime = new Date(req.body.dateTime);  
                 event.description = req.body.description;  
+                event.url = req.body.url;  
             } catch(err){
                 next(err);
             }

@@ -11,11 +11,11 @@ Time:  1493497486551
 # Data
 | Route	                        | HTTP Verb	    | Description                    |
 |-------------------------------|---------------|--------------------------------|
-| /api/v1/activities            | GET	        | Get all the activities         |
-| /api/v1/activities            | POST	        | Create a event.                |
-| /api/v1/activities/:event_id	| GET	        | Get a single event.            |
-| /api/v1/activities/:event_id	| PUT	        | Update a event with new info.  |
-| /api/v1/activities/:event_id	| DELETE	    | Delete a event.                |
+| /api/v1/events                | GET	        | Get all the events             |
+| /api/v1/events                | POST	        | Create a event.                |
+| /api/v1/event/:event_id	    | GET	        | Get a single event.            |
+| /api/v1/event/:event_id	    | PUT	        | Update a event with new info.  |
+| /api/v1/event/:event_id	    | DELETE	    | Delete a event.                |
 
 {
     "_id" : ObjectId("590514a4b31ff01367da41ec"),

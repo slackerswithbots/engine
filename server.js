@@ -24,14 +24,14 @@ mongoose.connect(MONGO_URI); // connect to our database
 
 
 // Models
-const Activity = require('./app/models/activity.js');
+const Event = require('./app/models/event.js');
 
 // ROUTES FOR OUR API
 // =============================================================================
 const router = express.Router();
 const apiRouter = express.Router();
-const activityRoutes = require('./app/routes/activityRoutes.js')(Activity);
-const activitiesRoutes = require('./app/routes/activitiesRoutes.js')(Activity);
+const eventRoutes = require('./app/routes/eventRoutes.js')(Event);
+const eventsRoutes = require('./app/routes/eventsRoutes.js')(Event);
 
 // Catch-all
 app.use(function timeLog(req, res, next) {
@@ -57,8 +57,8 @@ apiRouter.get('/', function(req, res) {
 // REGISTER OUR ROUTES -------------------------------
 // all of our routes will be prefixed with /api
 app.use(apiPrefix, apiRouter);
-app.use(apiPrefix, activityRoutes);
-app.use(apiPrefix, activitiesRoutes);
+app.use(apiPrefix, eventRoutes);
+app.use(apiPrefix, eventsRoutes);
 app.use('/', router);
 
 // START THE SERVER
